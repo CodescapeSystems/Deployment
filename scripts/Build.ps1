@@ -26,7 +26,7 @@ task Init {
 
 task RestorePackages -depends Init {
     Write-Host "Restoring NuGet packages"
-    exec { & $nuget restore $solutionName }
+    exec { & $nuget restore $baseDir\$solutionName }
 }
 
 task Compile -depends RestorePackages {
