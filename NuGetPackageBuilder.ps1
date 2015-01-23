@@ -17,8 +17,11 @@ if (Test-Path $destDir -PathType container) {
     Remove-Item $destDir -Recurse -Force
 }
 
-Copy-Item -Recurse $dir\nuget $destDir
-Copy-Item -Recurse $dir\tools $destDir\tools
+mkdir $destDir
+
+Copy-Item $dir\nuget\*.nuspec $destDir
+Copy-Item -Recurse $dir\tools\* $destDir\tools
+Copy-Item -Recurse $dir\scripts $destDir\scripts
 
 .\nuget pack "$destDir\package.nuspec" -Verbosity quiet
 

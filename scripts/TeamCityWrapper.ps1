@@ -5,7 +5,7 @@ param (
 
 Try
 {
-	Import-Module '.\packages\psake.4.3.2\tools\psake.psm1'
+	Import-Module '..\tools\psake.psm1'
 	Invoke-psake '.\Build.ps1' -task $task -parameters @{version=$version} 
 
 	$baseDir = resolve-path .\

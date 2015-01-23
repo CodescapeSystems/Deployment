@@ -1,10 +1,12 @@
 Framework "4.0"
 
 properties {
-    $baseDir = resolve-path .\
-    $solutionName = "Bcs.Imis.sln"
-	  $nuget = "$baseDir\packages\NuGet.CommandLine.2.8.2\tools\NuGet.exe"
-	  $nunit = "$baseDir\packages\NUnit.Runners.2.6.3\tools\nunit-console.exe"
+    $baseDir = resolve-path ..\
+    $solutionName = "SOLUTION_NAME"
+	  $nuget = "$baseDir\tools\NuGet.exe"
+	  
+    
+    # $nunit = "$baseDir\nunit-console.exe"
 
     if(!$version)
     {
@@ -18,8 +20,8 @@ task default -depends Package
 
 task Init {
     Write-Host "Clean test results"
-	delete_file $baseDir\UnitTestResult.xml
-	delete_file $baseDir\IntegrationTestResult.xml
+	  delete_file $baseDir\UnitTestResult.xml
+	  delete_file $baseDir\IntegrationTestResult.xml
 }
 
 task RestorePackages -depends Init {
@@ -63,5 +65,4 @@ function stop_iis_express() {
 function global:delete_file($file) {
     if($file) { remove-item $file -force -ErrorAction SilentlyContinue | out-null } 
 }
-
  

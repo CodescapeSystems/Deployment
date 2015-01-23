@@ -3,15 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D53FE579-BAE4-4943-BCD8-78D1F1C3F4F6}"
-	ProjectSection(SolutionItems) = preProject
-		NuGetPackageBuilder.ps1 = NuGetPackageBuilder.ps1
-		nuget\package.nuspec = nuget\package.nuspec
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{BF7C0BDF-2F1A-4EBF-873D-E7FBD8684422}"
 	ProjectSection(SolutionItems) = preProject
-		src\tools\init.ps1 = src\tools\init.ps1
+		tools\init.ps1 = tools\init.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F352C0D8-5748-4457-A25C-02C61ECCD5B2}"
@@ -20,6 +14,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F352C0
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploymentApplication", "DeploymentApplication\DeploymentApplication.csproj", "{F4C1E4E1-546C-4A7C-AC27-D3A7D340196A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{2A0D3859-B632-4B0E-BDFB-68CDD3CE4BF9}"
+	ProjectSection(SolutionItems) = preProject
+		build.bat = build.bat
+		Build.ps1 = Build.ps1
+		NuGetPackageBuilder.ps1 = NuGetPackageBuilder.ps1
+		nuget\package.nuspec = nuget\package.nuspec
+		teamcity.default.properties = teamcity.default.properties
+		TeamCityWrapper.ps1 = TeamCityWrapper.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
