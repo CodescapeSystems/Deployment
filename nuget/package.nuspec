@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Codescape.Deployment</id>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <authors>skingsley</authors>
     <owners>skingsley</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>

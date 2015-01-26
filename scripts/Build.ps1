@@ -3,10 +3,7 @@ Framework "4.0"
 properties {
     $baseDir = resolve-path ..\
     $solutionName = "SOLUTION_NAME"
-	  $nuget = "$baseDir\tools\NuGet.exe"
-	  
-    
-    # $nunit = "$baseDir\nunit-console.exe"
+	$nuget = "$baseDir\tools\NuGet.exe"
 
     if(!$version)
     {
@@ -43,17 +40,11 @@ task Compile -depends RestorePackages {
     exec { msbuild /t:build /v:q /nologo /p:Configuration=Release $baseDir\$solutionName }
 }
 
-task UnitTest -depends Compile {
-    exec { & $nunit  $baseDir\Bcs.Imis.UnitTests\bin\Debug\Bcs.Imis.UnitTests.dll /result=$baseDir\UnitTestResult.xml }
-}
+## Define modules with extra tasks here
+$addedTasks = "package", "tests"
 
-task Package -depends UnitTest {
-    exec { msbuild  $baseDir\Bcs.Imis\Bcs.Imis.csproj /t:package /p:RunOctoPack=true /p:Configuration=Release }
-    exec { msbuild  $baseDir\Bcs.ImisAdministration\Bcs.ImisAdministration.csproj /t:package /p:RunOctoPack=true /p:Configuration=Release }
-}
-
-task IntegrationTest -depends Init {
-    exec { & $nunit  $baseDir\Bcs.Imis.IntegrationTests\bin\Debug\Bcs.Imis.IntegrationTests.dll /result=$baseDir\IntegrationTestResult.xml }
+$addedTasks | foreach-object {
+    Import-Module  (join-path "." "$_.psm1" )
 }
 
 function stop_iis_express() {
