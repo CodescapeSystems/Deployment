@@ -20,6 +20,7 @@ if (Test-Path $destDir -PathType container) {
 mkdir $destDir
 
 Copy-Item $dir\nuget\*.nuspec $destDir
+Copy-Item $dir\nuget\*.txt $destDir
 Copy-Item -Recurse $dir\tools $destDir
 Copy-Item -Recurse $dir\scripts $destDir\scripts
 
