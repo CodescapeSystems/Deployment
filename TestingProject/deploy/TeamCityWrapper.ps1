@@ -8,7 +8,7 @@ Try
 	Import-Module '..\packages\psake.4.1.0\tools\psake.psm1'
 	Invoke-psake '.\Build.ps1' -task $task -parameters @{version=$version} 
 
-	$baseDir = resolve-path .\
+	$baseDir = resolve-path ..\
 	if (Test-Path $baseDir\UnitTestResult.xml) {
 		write-host "##teamcity[importData type='nunit' path='$baseDir\UnitTestResult.xml']"
 	}
