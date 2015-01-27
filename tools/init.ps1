@@ -39,14 +39,6 @@ if (!(test-path $toolsTarget)) {
     delete_file($toolsTarget + '\uninstall.ps1')
 }
 
-
-
-## install required packages
-$nuget = join-path $toolsTarget 'nuget.exe'
-
-& $nuget Install NUnit.Runners -version 2.6.4 -SolutionDirectory $rootDir
-& $nuget Install psake -version 4.1.0 -SolutionDirectory $rootDir
-
 ## copy scripts and add to solution
 
 if (!(test-path $deployTarget)) {
@@ -100,10 +92,6 @@ if (!(test-path $deployTarget)) {
   $folderItems = Get-Interface $deployFolder.ProjectItems ([EnvDTE.ProjectItems])
       
   (ls $deployTarget -exclude "*.cmd", "*.exe") | foreach-object {
-    $folderItems.AddFromFile($_.FullName)
-  }
-
-  (ls $toolsTarget -exclude "*.cmd", "*.exe") | foreach-object {
     $folderItems.AddFromFile($_.FullName)
   }
 }

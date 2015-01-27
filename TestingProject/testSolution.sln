@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.UnitTests", "Projec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.IntegrationTests", "Project.IntegrationTests\Project.IntegrationTests.csproj", "{E5DD9C21-353D-4518-A36A-A97C7D6AF4B6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{876E7EAD-31EB-41CE-BCE9-B6BD82191C35}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{A918B214-52D6-4680-BB53-3515E0242B1D}"
 	ProjectSection(SolutionItems) = preProject
 		deploy\build.bat = deploy\build.bat
 		deploy\Build.ps1 = deploy\Build.ps1

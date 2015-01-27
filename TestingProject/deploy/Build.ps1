@@ -3,7 +3,7 @@ Framework "4.0"
 properties {
     $baseDir = resolve-path ..\
     $solutionName = "testSolution.sln"
-	$nuget = "$baseDir\tools\NuGet.exe"
+	  $nuget = "$baseDir\tools\NuGet.exe"
 
     if(!$version)
     {

@@ -1,11 +1,6 @@
 param(
-    [int]$buildNumber = 0
+    [string]$buildNumber = "1.0.0.0"
     )
-
-if(Test-Path Env:\APPVEYOR_BUILD_NUMBER){
-    $buildNumber = [int]$Env:APPVEYOR_BUILD_NUMBER
-    Write-Host "Using APPVEYOR_BUILD_NUMBER"
-}
 
 "Build number $buildNumber"
 
@@ -24,7 +19,7 @@ Copy-Item $dir\nuget\*.txt $destDir
 Copy-Item -Recurse $dir\tools $destDir
 Copy-Item -Recurse $dir\scripts $destDir\scripts
 
-.\nuget pack "$destDir\package.nuspec" -Verbosity quiet
+.\nuget pack "$destDir\package.nuspec" -version $buildNumber -Verbosity quiet
 
 
 
