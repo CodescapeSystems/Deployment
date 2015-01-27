@@ -27,6 +27,17 @@ task Init {
 
 task RestorePackages {
     Write-Host "Restoring NuGet packages"
+
+    ## Remove this deployment package from config
+    ## This is a nasty hack until I can think of a tidier way
+    $path = "$baseDir\.nuget\packages.config"
+    if(test-path $path) {
+        $xml = [xml](Get-Content $path)
+        $package = $xml.Packages.Package | where {$_.id -eq 'Codescape.Deployment'}
+        [Void]$package.ParentNode.RemoveChild($package)
+        $xml.Save($path)
+    }
+
     exec { & $nuget restore $baseDir\$solutionName }
 }
 
