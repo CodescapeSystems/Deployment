@@ -19,7 +19,7 @@ Copy-Item $dir\nuget\*.txt $destDir
 Copy-Item -Recurse $dir\tools $destDir
 Copy-Item -Recurse $dir\scripts $destDir\scripts
 
-.\nuget pack "$destDir\package.nuspec" -version $buildNumber -Verbosity quiet
+.\tools\nuget pack "$destDir\package.nuspec" -version $buildNumber -Verbosity quiet
 
 
 
