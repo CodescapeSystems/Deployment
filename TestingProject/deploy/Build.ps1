@@ -1,5 +1,8 @@
 Framework "4.0"
 
+## Define modules with extra tasks here
+$addedTasks = "package", "tests"
+
 properties {
     $baseDir = resolve-path ..\
     $solutionName = "testSolution.sln"
@@ -59,9 +62,6 @@ task Compile -depends RestorePackages, PatchAssemblyInfo {
     Write-Host "Building the solution"
     exec { msbuild /t:build /v:q /nologo /p:Configuration=Release $baseDir\$solutionName }
 }
-
-## Define modules with extra tasks here
-$addedTasks = "package", "tests"
 
 $addedTasks | foreach-object {
     Import-Module  (join-path "." "$_.psm1" )

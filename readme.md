@@ -21,20 +21,33 @@ $  Install-Package Codescape.Deployment
 ```
 This will create a new folder called deployment in the solution. The build.bat file can be called from the command line.
 
-```sh
+```
 $ cd deploy
 $ build <task> <version>
 ```
 
-Tasks are defined as per psake syntax in the build.ps1 file.
+Tasks are defined as per psake syntax in the build.ps1 file. Please refer to the [psake documentation][2]
 
 ### Adding tasks
+To try and increase the usefulness an attept has been made to modularize this slightly. Build.ps1 contains basic tasks which should be common to most builds.
+- Compile (msbuild builds both debug and release at solution level)
+- RestorePackages (nuget restore)
+- PatchAssemblyInfo (sets the assemblyinfo.cs files to current version passed to build.bat)
+ 
+There are two files that are icluded with this package that define additional tasks:
+* tests.psm1 (includes tasks CleanResults, UnitTest, IntegrationTest)
+* package.psm1 (includes package task - this is empty but stubbed to use with packableable deployments)
 
-To add new tasks
+To add new tasks create a new file and add it to the deploy folder. Add the filename withour extension to the $addedTasks array at the top of the build.ps1 file.
+
+```sh
+$addedTasks = "package", "tests"
+```
+*Note: task files must be a .psm1 file*
 
 ### Todo's
 
- - Write Tests
+ - Improve general robustness of scripts
 
 License
 ----
@@ -43,3 +56,4 @@ MIT
 
 
 [1]:https://github.com/psake/psake
+[2]:https://github.com/psake/psake/wiki
