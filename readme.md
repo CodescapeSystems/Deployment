@@ -7,8 +7,8 @@ We are adding this to github simply as an aid for others who may wish to employ 
   - Heavy use of powershell and [psake] [1]
   - Nunit test runner
 
-### Version
-1.2.3
+### Current Version
+1.3.0
 
 ### Installation
 To fully utilise this a couple of conventions are assumed.
