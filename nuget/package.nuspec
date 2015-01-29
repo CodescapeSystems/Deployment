@@ -2,12 +2,13 @@
 <package >
   <metadata>
     <id>Codescape.Deployment</id>
-    <version>1.1.0</version>
-    <authors>skingsley</authors>
-    <owners>skingsley</owners>
+    <title>Codescape Deployment</title>
+    <version>1.3.1</version>
+    <authors>Shane Kingsley</authors>
+    <owners>Codescape Systems</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Adding assembly info patching.</description>
+    <description>Bug fix wen running build twice.</description>
     <copyright>Copyright 2015</copyright>
   </metadata>
 </package>
