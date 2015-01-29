@@ -37,6 +37,12 @@ task RestorePackages {
     if(test-path $path) {
         $xml = [xml](Get-Content $path)
         $package = $xml.Packages.Package | where {$_.id -eq 'Codescape.Deployment'}
+        
+        if($package -ne $null){
+            [Void]$package.ParentNode.RemoveChild($package)
+            $xml.Save($path)
+        }
+
         [Void]$package.ParentNode.RemoveChild($package)
         $xml.Save($path)
     }
