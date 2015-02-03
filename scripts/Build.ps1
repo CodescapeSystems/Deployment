@@ -42,9 +42,6 @@ task RestorePackages {
             [Void]$package.ParentNode.RemoveChild($package)
             $xml.Save($path)
         }
-
-        [Void]$package.ParentNode.RemoveChild($package)
-        $xml.Save($path)
     }
 
     exec { & $nuget restore $baseDir\$solutionName }
