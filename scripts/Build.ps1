@@ -1,6 +1,7 @@
 Framework "4.0"
 
-## Define modules with extra tasks here
+## Define modules with extra tasks here+
+$global:version = "1.0.0.0"
 $addedTasks = "package", "tests"
 
 properties {
@@ -10,7 +11,11 @@ properties {
 
     if(!$version)
     {
-        $version = "1.0.0.0"
+        $global:version = "1.0.0.0"
+    }
+    else
+    {
+        $global:version  = $version
     }
 
     Write-Host "Generating version $version"

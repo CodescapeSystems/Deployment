@@ -6,7 +6,8 @@ task Package -depends UnitTest {
 
 #   Other useful msbuild switches: 
 #   /p:RunOctoPack=true   - if octo pack is installed this will package the project
-#   /p:TransformConfigRile=true    - will run web.config transformations
+#   /p:TransformConfigFile=true    - will run web.config transformations
+#   /p:OctoPackPackageVersion=$global:version   - to create a package version
 
 #    exec { msbuild  $baseDir\[PATH TO WEB PROJECT].csproj /t:package  /p:Configuration=Release }
 

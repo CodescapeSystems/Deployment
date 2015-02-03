@@ -8,7 +8,7 @@ We are adding this to github simply as an aid for others who may wish to employ 
   - Nunit test runner
 
 ### Current Version
-1.3.1
+1.3.4
 
 ### Installation
 To fully utilise this a couple of conventions are assumed.
