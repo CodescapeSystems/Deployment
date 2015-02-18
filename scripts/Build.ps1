@@ -49,7 +49,16 @@ task RestorePackages {
         }
     }
 
-    exec { & $nuget restore $baseDir\$solutionName }
+    ## Check the existence of a nugetconfig
+    $configLocation = "$baseDir\.nuget\NuGet.config"
+    if(test-path $configLocation) {
+        exec { & $nuget restore $baseDir\$solutionName -ConfigFile $configLocation }
+    }
+    else {
+        exec { & $nuget restore $baseDir\$solutionName }    
+    }
+
+    
 }
 
 task PatchAssemblyInfo {
