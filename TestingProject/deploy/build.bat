@@ -4,6 +4,7 @@ set version=1.0.0.0
 
 if not '%1' == '' set task=%1
 if not '%2' == '' set version=%2
+if not '%3' == '' set packageversion=%3
 
 echo installing psake
 
@@ -11,5 +12,5 @@ echo installing psake
 
 echo Executing psake script TeamCityWrapper.ps1 with task "%task%" and version "%version%"
 
-powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "& '.\TeamCityWrapper.ps1' %task% %version%;"
+powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "& '.\TeamCityWrapper.ps1' %task% %version% %packageversion%;"
 exit /B %errorlevel%

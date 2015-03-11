@@ -1,12 +1,13 @@
 param (
 	[string]$task = "",
-	[string]$version = "1.0.0.0"
+	[string]$version = "1.0.0.0",
+	[string]$packageversion = ""
 )
 
 Try
 {
 	Import-Module '..\packages\psake.4.1.0\tools\psake.psm1'
-	Invoke-psake '.\Build.ps1' -task $task -parameters @{version=$version} 
+	Invoke-psake '.\Build.ps1' -task $task -parameters @{version=$version;packageversion=$packageversion}  
 
 	$baseDir = resolve-path ..\
 	if (Test-Path $baseDir\UnitTestResult.xml) {

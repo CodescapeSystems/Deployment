@@ -2,6 +2,7 @@ Framework "4.0"
 
 ## Define modules with extra tasks here+
 $global:version = "1.0.0.0"
+$global:packageversion = "1.0.0.0"
 $addedTasks = "package", "tests"
 
 properties {
@@ -19,6 +20,17 @@ properties {
     }
 
     Write-Host "Generating version $version"
+
+    if(!$packageversion)
+    {
+        $global:packageversion = $global:version
+    }
+    else
+    {
+        $global:packageversion  = $packageversion
+    }
+
+    Write-Host "Generating package version $packageversion"
 }
 
 task default -depends BaseBuild
@@ -57,7 +69,6 @@ task RestorePackages {
     else {
         exec { & $nuget restore $baseDir\$solutionName }    
     }
-
     
 }
 

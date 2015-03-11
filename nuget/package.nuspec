@@ -3,12 +3,13 @@
   <metadata>
     <id>Codescape.Deployment</id>
     <title>Codescape Deployment</title>
-    <version>1.3.4</version>
+    <version>1.3.5</version>
     <authors>Shane Kingsley</authors>
     <owners>Codescape Systems</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Global version added so exra modules have access to version.</description>
+    <description>Deployment helpers for .Net and teamcity.</description>
+    <releaseNotes>Enable use og nuget.config by default</releaseNotes>
     <copyright>Copyright Codescape Solutions 2015</copyright>
   </metadata>
 </package>

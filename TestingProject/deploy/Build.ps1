@@ -10,10 +10,25 @@ properties {
 
     if(!$version)
     {
-        $version = "1.0.0.0"
+        $global:version = "1.0.0.0"
+    }
+    else
+    {
+        $global:version  = $version
     }
 
     Write-Host "Generating version $version"
+
+    if(!$packageversion)
+    {
+        $global:packageversion = $global:version
+    }
+    else
+    {
+        $global:packageversion  = $packageversion
+    }
+
+    Write-Host "Generating package version $packageversion"
 }
 
 task default -depends BaseBuild
@@ -37,11 +52,22 @@ task RestorePackages {
     if(test-path $path) {
         $xml = [xml](Get-Content $path)
         $package = $xml.Packages.Package | where {$_.id -eq 'Codescape.Deployment'}
-        [Void]$package.ParentNode.RemoveChild($package)
-        $xml.Save($path)
+        
+        if($package -ne $null){
+            [Void]$package.ParentNode.RemoveChild($package)
+            $xml.Save($path)
+        }
     }
 
-    exec { & $nuget restore $baseDir\$solutionName }
+    ## Check the existence of a nugetconfig
+    $configLocation = "$baseDir\.nuget\NuGet.config"
+    if(test-path $configLocation) {
+        exec { & $nuget restore $baseDir\$solutionName -ConfigFile $configLocation }
+    }
+    else {
+        exec { & $nuget restore $baseDir\$solutionName }    
+    }
+
 }
 
 task PatchAssemblyInfo {
