@@ -16,12 +16,6 @@ Try
 	if (Test-Path $baseDir\IntegrationTestResult.xml) {
 		write-host "##teamcity[importData type='nunit' path='$baseDir\IntegrationTestResult.xml']"
 	}
-	if (Test-Path $baseDir\CardsSpecificationTestResult.xml) {
-		write-host "##teamcity[importData type='nunit' path='$baseDir\CardsSpecificationTestResult.xml']"
-	}
-	if (Test-Path $baseDir\FastpaySpecificationTestResult.xml) {
-		write-host "##teamcity[importData type='nunit' path='$baseDir\FastpaySpecificationTestResult.xml']"
-	}
 
 	if ($lastexitcode) { 
 		write-host "ERROR: $lastexitcode" -fore RED

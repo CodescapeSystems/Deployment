@@ -1,14 +1,23 @@
-Framework "4.0"
+Framework "4.6"
 
-## Define modules with extra tasks here+
+# Development config
+$global:devConfig = ""
+# Global version shared to all tasks
 $global:version = "1.0.0.0"
+
+# Global package version shared to all tasks
 $global:packageversion = "1.0.0.0"
-$addedTasks = "package", "tests"
+
+# Global engine used to check if this is runnig on local machine of build server
+$global:engine = "server"
+
+## Define modules with extra tasks here
+$addedTasks = "package", "tests", "nuget"
 
 properties {
     $baseDir = resolve-path ..\
     $solutionName = "SOLUTION_NAME"
-	  $nuget = "$baseDir\tools\NuGet.exe"
+	$nuget = "$baseDir\tools\NuGet.exe"
 
     if(!$version)
     {
@@ -35,17 +44,27 @@ properties {
 
 task default -depends BaseBuild
 
+task LoadConfiguration {
+    $configLocation = "$env:UserProfile\developerConfig.json"
+
+    if(test-path $configLocation)
+    {
+        $global:devConfig = (Get-Content $configLocation) -join "`n" | ConvertFrom-Json
+        $global:engine = "local"
+        write-host "Hi " $devConfig.user
+    }
+    else {
+        $global:engine = "server"
+        write-host "Configuration not loaded, assuming build server"
+    }
+}
+
 task BaseBuild -depends Compile {
     Write-Host "Base Build"
     Reset-AssemblyInfoFiles($baseDir)
 }
 
-task Init {
-    Write-Host "Initialising"
-	Reset-AssemblyInfoFiles($baseDir)
-}
-
-task RestorePackages {
+task RestorePackages -depends LoadConfiguration {
     Write-Host "Restoring NuGet packages"
 
     ## Remove this deployment package from config
@@ -61,15 +80,31 @@ task RestorePackages {
         }
     }
 
-    ## Check the existence of a nugetconfig
-    $configLocation = "$baseDir\.nuget\NuGet.config"
-    if(test-path $configLocation) {
-        exec { & $nuget restore $baseDir\$solutionName -ConfigFile $configLocation }
+    if($global:devConfig -eq "") ## No local config loaded
+    {
+        $config = GetConfig "__config.json"
+        write-host "Running Server build from __config.json"
+        if($config -ne "" -and $config.packageSources){
+		    write-host "Pulling from __config"
+            restoreUsingPackages $config.packageSources
+        }else{
+		    throw "No config file or package sources found!"
+	    }
     }
-    else {
-        exec { & $nuget restore $baseDir\$solutionName }    
+    else{
+        if($global:devConfig.packageSources){
+            write-host "Running from developer config"
+            restoreUsingPackages $global:devConfig.packageSources
+        }else{
+            write-host "Running from default location"
+            exec { & $nuget restore $baseDir\$solutionName }
+        }
     }
-    
+}
+
+function restoreUsingPackages($sources){
+    $nugetSource = $sources -join ';'
+    exec { & $nuget restore $baseDir\$solutionName -Source $nugetSource }
 }
 
 task PatchAssemblyInfo {
@@ -78,12 +113,6 @@ task PatchAssemblyInfo {
 }
 
 task Compile -depends RestorePackages, PatchAssemblyInfo {
-    Write-Host "Build Debug"
-    Write-Host "Cleaning the solution $solutionName"
-    exec { msbuild /t:clean /v:q /nologo /p:Configuration=Debug $baseDir\$solutionName }
-    Write-Host "Building the solution"
-    exec { msbuild /t:build /v:q /nologo /p:Configuration=Debug $baseDir\$solutionName }
-
     Write-Host "Build Release"
     Write-Host "Cleaning the solution $solutionName"
     exec { msbuild /t:clean /v:q /nologo /p:Configuration=Release $baseDir\$solutionName }
@@ -95,17 +124,24 @@ $addedTasks | foreach-object {
     Import-Module  (join-path "." "$_.psm1" )
 }
 
-function stop_iis_express() {
-    if (Get-Process iisexpress -ErrorAction silentlycontinue) {
-		Stop-Process -processname iisexpress
-	}
-}
-
 function global:delete_file($file) {
     if($file) { remove-item $file -force -ErrorAction SilentlyContinue | out-null } 
 }
- 
 
+function GetConfig([string] $file){
+    write-host "Getting config for " $file
+    $x = ""
+
+    $configLocation = "$baseDir\deploy\$file"
+    if(test-path $configLocation) {
+        $x = (Get-Content $file) -join "`n" | ConvertFrom-Json
+    }
+
+    write-host "Read information " $x
+
+    return $x
+}
+ 
 function Update-AssemblyInfoFiles ([string] $version, [string] $executingDir, [System.Array] $excludes = $null, $make_writeable = $false) {
  
 #-------------------------------------------------------------------------------

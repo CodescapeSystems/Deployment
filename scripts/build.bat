@@ -8,7 +8,7 @@ if not '%3' == '' set packageversion=%3
 
 echo installing psake
 
-..\tools\nuget Install psake -version 4.1.0 -SolutionDirectory ".."
+..\tools\nuget Install psake -version 4.5.0 -SolutionDirectory ".."
 
 echo Executing psake script TeamCityWrapper.ps1 with task "%task%" and version "%version%"
 

@@ -57,7 +57,7 @@ if (!(test-path $deployTarget)) {
   ## add psake install location to teamcitywrapper
   $tcWrapper = $deployTarget + 'teamCityWrapper.ps1'
 
-  replaceInFile $tcWrapper  $tcWrapper "PSAKE_LOCATION" "psake.4.1.0\tools"
+  replaceInFile $tcWrapper  $tcWrapper "PSAKE_LOCATION" "psake.4.5.0\tools"
 
 
   ## Add the items to our solution
