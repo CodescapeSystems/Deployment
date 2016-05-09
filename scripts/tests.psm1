@@ -1,7 +1,7 @@
 $baseDir = resolve-path ..\
 
 $nuget = "$baseDir\tools\NuGet.exe"
-$nunit = "$baseDir\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe"
+$nunit = "$baseDir\packages\NUnit.ConsoleRunner.3.2.1\tools\nunit3-console.exe"
 
 task CleanResults {
     write-host "Clean Results"
@@ -9,7 +9,7 @@ task CleanResults {
 	  delete_file $baseDir\IntegrationTestResult.xml
 
     write-host "Installing nunit runners"
-    & $nuget Install NUnit.Runners -version 2.6.4 -SolutionDirectory $baseDir
+    & $nuget Install NUnit.Runners -version 3.2.1 -SolutionDirectory $baseDir
 }
 
 task UnitTest -depends Compile, CleanResults {
